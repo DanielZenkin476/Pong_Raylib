@@ -25,19 +25,19 @@ void Ball::Update() {
 	posX += speed_x;
 	posY += speed_y;
 	if (posX >= sWidth - int(radius)) {// check right bound 
-		posX = sWidth - radius;// move to edge
+		posX = sWidth - int(radius);// move to edge
 		speed_x = -speed_x;// -1 * to speed
 	}
 	if (posX <= 0) {// check left bound
-		posX = radius;// move to edge
+		posX = int(radius);// move to edge
 		speed_x = -speed_x;// -1 * to speed
 	}
 	if (posY >= sHeight - int(radius) ) {// check if lower bound
-		posY = sHeight - radius;// move to edge
+		posY = sHeight - int(radius);// move to edge
 		speed_y = -speed_y;// -1 * to speed
 	}
 	if (posY <= 0) {// check if upper bound
-		posY = radius;// move to edge
+		posY = int(radius);// move to edge
 		speed_y = -speed_y;// -1 * to speed
 	}
 }

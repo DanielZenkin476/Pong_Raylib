@@ -22,7 +22,7 @@ int main()
     {
       
         BeginDrawing();//creates blank canvas so we can draw
-        ClearBackground(Blue);// change backround color
+        ClearBackground(Blue);// change backround color, also to to a "soft reset" of screen to not show past iterations
         DrawRectangleRounded({ 0, 0, sWidth, sHeight }, float(0.3), 6, BLUE);// rectangle for backround
 
         DrawCircle(600, 400, 100, cyan);

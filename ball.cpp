@@ -24,21 +24,21 @@ void Ball::ChangeColor(Color c)
 void Ball::Update() {
 	posX += speed_x;
 	posY += speed_y;
-	if (posX >= sWidth - int(radius)) {
-		posX = sWidth - radius;
-		speed_x = -speed_x;
+	if (posX >= sWidth - int(radius)) {// check right bound 
+		posX = sWidth - radius;// move to edge
+		speed_x = -speed_x;// -1 * to speed
 	}
-	if (posX <= 0) {
-		posX = radius;
-		speed_x = -speed_x;
+	if (posX <= 0) {// check left bound
+		posX = radius;// move to edge
+		speed_x = -speed_x;// -1 * to speed
 	}
-	if (posY >= sHeight - int(radius) ) {
-		posY = sHeight - radius;
-		speed_y = -speed_y;
+	if (posY >= sHeight - int(radius) ) {// check if lower bound
+		posY = sHeight - radius;// move to edge
+		speed_y = -speed_y;// -1 * to speed
 	}
-	if (posY <= 0) {
-		posY = radius;
-		speed_y = -speed_y;
+	if (posY <= 0) {// check if upper bound
+		posY = radius;// move to edge
+		speed_y = -speed_y;// -1 * to speed
 	}
 }
 

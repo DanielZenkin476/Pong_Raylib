@@ -4,6 +4,7 @@
 #include <iostream>
 #include <raylib.h>
 #include <colors.h>
+#include <ball.h>
 using namespace std;
 
 int main()
@@ -13,6 +14,10 @@ int main()
     InitWindow(sWidth,sHeight, "PONG");// size of window
     SetTargetFPS(60);// sets Game Target FPS
     Font font = LoadFontEx("Font/hpsimplifiedjpan-regular.ttf", 64, 0, 0);// font for display
+
+    Ball ball = Ball(sWidth / 2, sHeight / 2, 15, white,5,5,sHeight,sWidth);
+
+
     while (WindowShouldClose()==false)// will run until esc key is pressed
     {
       
@@ -34,13 +39,9 @@ int main()
 
         DrawRectangle(20, sHeight/2 -50, 30, 100, white);
         DrawRectangle(1150, sHeight / 2-50 , 30, 100, white);
+        ball.Update();
 
-        DrawCircle(600, 400, 15, white);
-
-
-
-
-
+        ball.Draw();
         EndDrawing();// end canvas drawing
 
     }

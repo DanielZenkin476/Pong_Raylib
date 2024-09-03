@@ -9,6 +9,18 @@
 
 using namespace std;
 
+double lastUpdateTime = 0.0;// to manage block movment downwards
+
+bool EventTriggered(double interval) {// to check if interval is less then 2 msec- then new hit
+    // function to check if time between current time and last check time is more then interval- if yes return true
+    double currTime = GetTime();
+    if (interval <= currTime - lastUpdateTime) {
+        lastUpdateTime = currTime;
+        return true;
+    }
+    return false;
+}
+
 int main()
 {
     const int sWidth = 1200;
@@ -22,6 +34,9 @@ int main()
     // paddle ids- 1 for p1 ,2 for p2, 3 for ai
     Paddle p1 = Paddle(1,20, sHeight / 2 - 50, 100, 30, sWidth, sHeight, red);
     Paddle p2 = Paddle(3,1150, sHeight / 2 - 50 , 100, 30, sWidth, sHeight, orange);
+
+    double interval= 0.2;
+
  
 
     while (WindowShouldClose()==false)// will run until esc key is pressed
@@ -51,7 +66,7 @@ int main()
             p2.AIUpdate(ball);
         }
 
-        // colision detection
+        // collision detection
         if (CheckCollisionCircleRec(Vector2{ (float)ball.posX ,(float)ball.posY }, ball.radius, Rectangle{ (float)p1.posX, (float)p1.posY, (float)p1.width, (float)p1.height }))// check collision p1
         {
             ball.speed_x = -ball.speed_x;
@@ -64,27 +79,28 @@ int main()
 
         // check if scored
         if (ball.posX-(int)ball.radius == 0) {
-            p2.score++;
+            if (EventTriggered(interval)) p2.score++;
 
         }
         if (ball.posX + (int)ball.radius ==sWidth) {
-            p1.score++;
+            if (EventTriggered(interval)) p1.score++;
 
         }
        // draw game objects
         p1.Draw();
         p2.Draw();
         ball.Draw();
-        //Draw score 
+        //Draw score p1
         char scoreText[10];
         sprintf_s(scoreText, "%d", p1.score);
         Vector2 textSize = MeasureTextEx(font, scoreText, 38, 2);
-        DrawTextEx(font, scoreText, Vector2{ 100 ,200}, 38, 2, WHITE);//draw score centered
+        DrawTextEx(font, scoreText, Vector2{ 550 ,100}, 38, 2, WHITE);
 
+        // draw score p2
         char scoreText2[10];
         sprintf_s(scoreText2, "%d", p2.score);
         Vector2 textSize2 = MeasureTextEx(font, scoreText2, 38, 2);
-        DrawTextEx(font, scoreText2, Vector2{ 800 ,200 }, 38, 2, WHITE);//draw score centered
+        DrawTextEx(font, scoreText2, Vector2{ 630,100 }, 38, 2, WHITE);
         EndDrawing();// end canvas drawing
 
     }

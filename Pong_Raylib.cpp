@@ -21,6 +21,20 @@ bool EventTriggered(double interval) {// to check if interval is less then 2 mse
     return false;
 }
 
+void CollisionDetect(Paddle player, Ball ball) {
+    for (int x = player.posX; x < player.posX + player.width; x++) {
+        if (ball.PointInBall(x, player.posY)) {// check upper bound 
+            ball.posY = player.posY - (int)ball.radius;// move to edge
+            ball.speed_y = -ball.speed_y;
+        }
+        if (ball.PointInBall(x, player.posY+ player.height)) {// check lower bound 
+            ball.posY = player.posY+ player.height + (int)ball.radius;// move to edge
+            ball.speed_y = -ball.speed_y;
+        }
+    }
+}
+
+
 int main()
 {
     const int sWidth = 1200;
@@ -66,7 +80,7 @@ int main()
             p2.AIUpdate(ball);
         }
 
-        // collision detection
+        // collision detection raylib one - only x
         if (CheckCollisionCircleRec(Vector2{ (float)ball.posX ,(float)ball.posY }, ball.radius, Rectangle{ (float)p1.posX, (float)p1.posY, (float)p1.width, (float)p1.height }))// check collision p1
         {
             ball.speed_x = -ball.speed_x;
@@ -76,7 +90,8 @@ int main()
         {
             ball.speed_x = -ball.speed_x;
         }
-
+        CollisionDetect(p1, ball);
+        CollisionDetect(p2, ball);
         // check if scored
         if (ball.posX-(int)ball.radius == 0) {
             if (EventTriggered(interval)) p2.score++;

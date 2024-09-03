@@ -8,6 +8,7 @@ public:
 	void Draw();
 	void ChangeColor(Color c);
 	void Update();
+	bool PointInBall(int x, int y);
 	int posX;
 	int posY;
 	float radius;

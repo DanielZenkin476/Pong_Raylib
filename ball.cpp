@@ -1,4 +1,5 @@
 #include "ball.h"
+#include <math.h>
 
 Ball::Ball(int posx, int posy, float r, Color c, int sx, int sy,int sH,int sW)
 {
@@ -40,6 +41,12 @@ void Ball::Update() {
 		posY = int(radius);// move to edge
 		speed_y = -speed_y;// -1 * to speed
 	}
+}
+
+bool Ball::PointInBall(int x, int y)
+{
+	if (abs(x - posX) ^ 2 + abs(y - posY) ^ 2 < radius ^ 2) return true;
+	return false;
 }
 
 
